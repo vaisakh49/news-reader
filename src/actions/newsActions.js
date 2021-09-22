@@ -15,7 +15,6 @@ export const letestNews = () => async (dispatch) => {
 
   const { data } = await axios.get("/news-api/news/", config)
 
-  console.log(data.result.data)
   const news = await data.result.data
 
   dispatch({
@@ -24,7 +23,7 @@ export const letestNews = () => async (dispatch) => {
   })
 }
 
-export const searchNews = (text) => async (dispatch) => {
+export const searchNews = (text, startdate, enddate) => async (dispatch) => {
   dispatch({ type: SEARCH_NEWS_REQUEST })
 
   const config = {
@@ -34,11 +33,10 @@ export const searchNews = (text) => async (dispatch) => {
   }
 
   const { data } = await axios.get(
-    `/news-api/news/?q=${text}&sentiment=Positive&start_date=2020-12-01&end_date=2020-12-03&source_id=277%2C4171&category_id=13010000%2C04018000`,
+    `/news-api/news/?q=${text}&sentiment=Positive&start_date=${startdate}&end_date=${enddate}&source_id=277%2C4171&category_id=13010000%2C04018000`,
     config
   )
 
-  console.log(data.result.data)
   const news = await data.result.data
 
   dispatch({

@@ -1,8 +1,6 @@
 import React from "react"
-// import PropTypes from 'prop-types'
-import { singleData } from "../../demoData"
-import { useHistory } from "react-router-dom"
 import { useSelector } from "react-redux"
+// import PropTypes from 'prop-types'
 
 const News = ({ newsId }) => {
   const newsList = useSelector((state) => state.newsList)

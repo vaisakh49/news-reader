@@ -1,22 +1,8 @@
-import React, { useState } from "react"
-import axios from "axios"
-// import PropTypes from "prop-types"
+import React from "react"
 import Search from "../custom/Search"
+// import PropTypes from "prop-types"
 
 const Navbar = (props) => {
-  const [data, setData] = useState(null)
-  const searchNews = async () => {
-    const config = {
-      headers: {
-        "x-api-key": "IHEwbeb7kN3f7I3Qizc1FqAJVexvcKUE",
-      },
-    }
-
-    const { data } = await axios.get("/news-api/news/", config)
-    setData(data)
-    console.log(data.result.data)
-  }
-
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container">

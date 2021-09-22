@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react"
 // import PropTypes from "prop-types"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { letestNews, searchNews } from "../../actions/newsActions"
 
 const Search = (props) => {
   const dispatch = useDispatch()
+
+  const filterList = useSelector((state) => state.filterList)
+
+  const { startdate, enddate } = filterList
 
   useEffect(() => {
     dispatch(letestNews())
@@ -14,10 +18,11 @@ const Search = (props) => {
 
   const search = (e) => {
     e.preventDefault()
-    if (text === "") {
+    if (text === "" || startdate === "" || enddate === "") {
       alert("please enter something")
+      dispatch(letestNews())
     } else {
-      dispatch(searchNews(text))
+      dispatch(searchNews(text, startdate, enddate))
       setText("")
     }
   }

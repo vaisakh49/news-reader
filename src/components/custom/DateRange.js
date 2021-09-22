@@ -1,9 +1,14 @@
 import React from "react"
-// import PropTypes from 'prop-types'
+import { useDispatch } from "react-redux"
 import { Form, DatePicker, Button } from "antd"
 import "antd/dist/antd.css"
 
+// import PropTypes from 'prop-types'
+import { startDate, endDate } from "../../actions/filterActions"
+
 const DateRange = (props) => {
+  const dispatch = useDispatch()
+
   const { RangePicker } = DatePicker
 
   const rangeConfig = {
@@ -17,19 +22,13 @@ const DateRange = (props) => {
   }
 
   const onFinish = (fieldsValue) => {
-    // Should format date value before submit.
     const rangeValue = fieldsValue["range-picker"]
-    console.log(rangeValue)
 
-    const values = {
-      ...fieldsValue,
-      "range-picker": [
-        rangeValue[0].format("YYYY-MM-DD"),
-        rangeValue[1].format("YYYY-MM-DD"),
-      ],
-    }
-    //Getting input values
-    console.log("Received values of form: ", values)
+    const firstDate = rangeValue[0].format("YYYY-MM-DD")
+    const secondDate = rangeValue[1].format("YYYY-MM-DD")
+
+    dispatch(startDate(firstDate))
+    dispatch(endDate(secondDate))
   }
 
   return (

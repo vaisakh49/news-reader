@@ -1,9 +1,8 @@
 import React from "react"
+import { useSelector } from "react-redux"
 import DateRange from "../custom/DateRange"
 import NewsCard from "./NewsCard"
 // import PropTypes from 'prop-types'
-import { data } from "../../demoData"
-import { useSelector } from "react-redux"
 
 const NewsList = (props) => {
   const newsList = useSelector((state) => state.newsList)
