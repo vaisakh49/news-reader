@@ -1,10 +1,14 @@
-import React from "react"
+import React, { useEffect } from "react"
 // import PropTypes from "prop-types"
 import { useDispatch } from "react-redux"
-import { searchNews } from "../../actions/newsActions"
+import { letestNews, searchNews } from "../../actions/newsActions"
 
 const Search = (props) => {
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(letestNews())
+  }, [dispatch])
 
   const search = () => {
     dispatch(searchNews())

@@ -1,22 +1,30 @@
 import React from "react"
 // import PropTypes from 'prop-types'
+import { useHistory } from "react-router-dom"
 
-const NewsCard = ({ title, date }) => {
+const NewsCard = ({ key, id, date, title, source }) => {
+  const history = useHistory()
+
+  function pushHandler(id) {
+    history.push(`${id}`)
+  }
   const newDate = date ? date.split("T")[0] : ""
+
   return (
     <>
-      <div className="">
-        <div className="row">
-          {/* <div className="col-8 col-lg-12">  */}
-          <div className="">
+      <div onClick={() => pushHandler(id)}>
+        <div className="card">
+          <div className="row my-1 p-2 rounded">
             <h6 className="">{newDate}</h6>
-            <p className="lead">{title}</p>
+            <p>
+              <b>{title}</b>
+            </p>
+            <hr />
+            <h6>{source}</h6>
           </div>
         </div>
       </div>
-      <hr />
     </>
-    // </div>
   )
 }
 

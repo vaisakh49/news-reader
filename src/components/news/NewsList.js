@@ -17,7 +17,13 @@ const NewsList = (props) => {
       ) : (
         <div>
           {news.map((data) => (
-            <NewsCard key={data.id} title={data.title} date={data.date} />
+            <NewsCard
+              key={data.id}
+              id={data.id}
+              source={data.publication}
+              title={data.title}
+              date={data.date}
+            />
           ))}
         </div>
       )}
