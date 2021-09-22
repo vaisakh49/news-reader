@@ -8,10 +8,10 @@ const HomeScreen = ({ match }) => {
 
   return (
     <div className="row ">
-      <div className="col-3">
+      <div className="col-4">
         <NewsList />
       </div>
-      <div className="col-8 m-5">
+      <div className="col-7 m-5">
         <News newsId={newsId} />
       </div>
     </div>

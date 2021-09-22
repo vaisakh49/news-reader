@@ -33,7 +33,10 @@ export const searchNews = () => async (dispatch) => {
     },
   }
 
-  const { data } = await axios.get("/news-api/news/", config)
+  const { data } = await axios.get(
+    "/news-api/news/?q=Iphone&sentiment=Positive&start_date=2020-12-01&end_date=2020-12-03&source_id=277%2C4171&category_id=13010000%2C04018000",
+    config
+  )
 
   console.log(data.result.data)
   const news = await data.result.data

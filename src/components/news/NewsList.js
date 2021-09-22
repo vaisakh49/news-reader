@@ -16,15 +16,20 @@ const NewsList = (props) => {
         <h4>loading....</h4>
       ) : (
         <div>
-          {news.map((data) => (
-            <NewsCard
-              key={data.id}
-              id={data.id}
-              source={data.publication}
-              title={data.title}
-              date={data.date}
-            />
-          ))}
+          <div className="container mt-2">
+            <DateRange />
+          </div>
+          <div>
+            {news.map((data) => (
+              <NewsCard
+                key={data.id}
+                id={data.id}
+                source={data.publication}
+                title={data.title}
+                date={data.date}
+              />
+            ))}
+          </div>
         </div>
       )}
     </div>
