@@ -1,19 +1,29 @@
+import React from "react"
+import { useSelector } from "react-redux"
+import Loading from "../components/layouts/Loading"
 import NewsList from "../components/news/NewsList"
 import News from "../components/news/News"
-import React from "react"
 
 const HomeScreen = ({ match }) => {
+  const newsList = useSelector((state) => state.newsList)
+  const { loading } = newsList
+
   const newsId = match.params.id
-  console.log(newsId)
 
   return (
     <div className="row ">
-      <div className="col-4">
-        <NewsList />
-      </div>
-      <div className="col-7 m-5">
-        <News newsId={newsId} />
-      </div>
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          <div className="col-4">
+            <NewsList />
+          </div>
+          <div className="col-7 m-5">
+            <News newsId={newsId} />
+          </div>
+        </>
+      )}
     </div>
   )
 }

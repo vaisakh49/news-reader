@@ -13,7 +13,7 @@ const NewsList = (props) => {
   return (
     <div className="container">
       {loading ? (
-        <h4>loading....</h4>
+        <div />
       ) : (
         <div>
           <div className="container mt-2">
