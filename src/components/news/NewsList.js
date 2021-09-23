@@ -15,7 +15,7 @@ const NewsList = (props) => {
         <div />
       ) : (
         <div>
-          <div className="container mt-2">
+          <div className="container mt-5">
             <DateRange />
           </div>
           <div>

@@ -4,7 +4,7 @@ import Search from "../custom/Search"
 
 const Navbar = (props) => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light ">
       <div className="container">
         <a className="navbar-brand" href="/">
           <strong>News Reader</strong>

@@ -1,14 +1,18 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { useSelector } from "react-redux"
 import Loading from "../components/layouts/Loading"
 import NewsList from "../components/news/NewsList"
 import News from "../components/news/News"
 
-const HomeScreen = ({ match }) => {
+const HomeScreen = ({ match, history }) => {
   const newsList = useSelector((state) => state.newsList)
   const { loading } = newsList
 
   const newsId = match.params.id
+
+  useEffect(() => {
+    history.push("/")
+  }, [history])
 
   return (
     <div className="row ">

@@ -2,29 +2,36 @@ import React, { useEffect, useState } from "react"
 // import PropTypes from "prop-types"
 import { useDispatch, useSelector } from "react-redux"
 import { letestNews, searchNews } from "../../actions/newsActions"
+import { setModalValue } from "../../actions/filterActions"
 
 const Search = (props) => {
   const dispatch = useDispatch()
 
   const filterList = useSelector((state) => state.filterList)
 
-  const { startdate, enddate } = filterList
+  const { startdate, enddate, showmodal } = filterList
+
+  const [text, setText] = useState("")
+  const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
     dispatch(letestNews())
   }, [dispatch])
 
-  const [text, setText] = useState("")
-
   const search = (e) => {
     e.preventDefault()
     if (text === "" || startdate === "" || enddate === "") {
       alert("please enter something")
-      dispatch(letestNews())
+      // dispatch(letestNews())
     } else {
       dispatch(searchNews(text, startdate, enddate))
       setText("")
     }
+  }
+
+  const showModal = () => {
+    setIsOpen(true)
+    dispatch(setModalValue(true))
   }
 
   // updating text state
@@ -44,8 +51,8 @@ const Search = (props) => {
           onChange={onChange}
         />
       </form>
-      <button className="btn btn-outline-secondary " onClick={search}>
-        Search
+      <button className="btn btn-primary" onClick={showModal}>
+        Advance Search
       </button>
     </>
   )

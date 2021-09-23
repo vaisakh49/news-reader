@@ -1,8 +1,12 @@
-import React from "react"
+import React, { useState } from "react"
 // import PropTypes from 'prop-types'
 import { useHistory } from "react-router-dom"
 
-const NewsCard = ({ id, date, title, source }) => {
+const NewsCard = ({ id, date, title, source, sentiment }) => {
+  const [type, setType] = useState(sentiment)
+
+  console.log(sentiment)
+
   const history = useHistory()
 
   function pushHandler(id) {
@@ -19,7 +23,16 @@ const NewsCard = ({ id, date, title, source }) => {
             <div className="py-2">
               <b>{title}</b>
             </div>
-            <div className="text-muted">{source}</div>
+
+            <div className="text-muted">
+              {/* {type === "Positive" && (
+                <button
+                  type="button"
+                  class="btn btn-primary btn-circle btn-sm"
+                />
+              )} */}
+              <span className="mx-2">{source} </span>
+            </div>
           </div>
         </div>
       </div>

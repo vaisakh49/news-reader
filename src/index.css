@@ -19,3 +19,46 @@
   transform: scale(1.01);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
 }
+
+.btn-circle.btn-sm {
+  width: 20px;
+  height: 20px;
+  padding: 6px 0px;
+  border-radius: 15px;
+}
+
+.scroll-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+}
+.scroll-container .indicator {
+  height: 100%;
+  background: #1681e5;
+}
+
+.scroll-to-top {
+  position: fixed;
+  bottom: 12px;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  background: #1681e5;
+  color: #fff;
+  z-index: 1;
+}
+.scroll-to-top .icon {
+  margin-top: 10px;
+  animation: scrollTop 0.5s alternate ease infinite;
+}
+@keyframes scrollTop {
+  from {
+    transform: translateY(2px);
+  }
+  to {
+    transform: translateY(-1px);
+  }
+}
