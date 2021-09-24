@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react"
 // import PropTypes from "prop-types"
 import { useDispatch, useSelector } from "react-redux"
-import { letestNews, searchNews } from "../../actions/newsActions"
-import { setModalValue } from "../../actions/filterActions"
+import { searchNews } from "../../actions/newsActions"
+import { setModalValue, startDate } from "../../actions/filterActions"
 
 const Search = (props) => {
   const dispatch = useDispatch()
@@ -14,9 +14,12 @@ const Search = (props) => {
   const [text, setText] = useState("")
   const [isOpen, setIsOpen] = useState(false)
 
-  useEffect(() => {
-    dispatch(letestNews())
-  }, [dispatch])
+  // useEffect(() => {
+  //   dispatch(letestNews())
+  // }, [dispatch])
+  console.log(text)
+  console.log(startdate)
+  console.log(enddate)
 
   const search = (e) => {
     e.preventDefault()
@@ -38,6 +41,9 @@ const Search = (props) => {
   const onChange = (e) => {
     // this.setState({ [e.target.name]: e.target.value });
     setText(e.target.value)
+    console.log(text)
+    console.log(startdate)
+    console.log(enddate)
   }
 
   return (
@@ -51,9 +57,9 @@ const Search = (props) => {
           onChange={onChange}
         />
       </form>
-      <button className="btn btn-primary" onClick={showModal}>
-        Advance Search
-      </button>
+      <a href="#advance-search-modal" className="btn blue modal-trigger">
+        add
+      </a>
     </>
   )
 }

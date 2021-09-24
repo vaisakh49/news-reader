@@ -8,7 +8,14 @@ import HomeScreen from "./screens/HomeScreen"
 import ScrollTop from "./components/layouts/ScrollTop"
 import ScrollIndicator from "./components/layouts/ScrollIndicator"
 
+// import "materialize-css/dist/css/materialize.min.css"
+// import M from "materialize-css/dist/js/materialize.min.js"
+
 function App() {
+  // useEffect(() => {
+  //   // Auto init matirialize js
+  //   M.AutoInit()
+  // })
   const filterList = useSelector((state) => state.filterList)
 
   const { showmodal } = filterList
@@ -20,6 +27,7 @@ function App() {
     <Router>
       <ScrollTop />
       <Navbar />
+
       <AdvanceSearchModal />
       <Route path="/:id?" component={HomeScreen} />
       <ScrollIndicator />
