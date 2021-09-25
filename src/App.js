@@ -27,8 +27,6 @@ function App() {
     <Router>
       <ScrollTop />
       <Navbar />
-
-      <AdvanceSearchModal />
       <Route path="/:id?" component={HomeScreen} />
       <ScrollIndicator />
     </Router>

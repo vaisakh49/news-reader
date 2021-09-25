@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 // import PropTypes from "prop-types"
 import { useDispatch, useSelector } from "react-redux"
 import { searchNews } from "../../actions/newsActions"
-import { setModalValue, startDate } from "../../actions/filterActions"
+import { setModalValue, startDate, endDate } from "../../actions/filterActions"
 
 const Search = (props) => {
   const dispatch = useDispatch()
@@ -28,6 +28,8 @@ const Search = (props) => {
       // dispatch(letestNews())
     } else {
       dispatch(searchNews(text, startdate, enddate))
+      dispatch(startDate(""))
+      dispatch(endDate(""))
       setText("")
     }
   }
@@ -57,9 +59,6 @@ const Search = (props) => {
           onChange={onChange}
         />
       </form>
-      <a href="#advance-search-modal" className="btn blue modal-trigger">
-        add
-      </a>
     </>
   )
 }

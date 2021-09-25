@@ -13,7 +13,7 @@ const News = ({ newsId }) => {
 
   return (
     <>
-      {newsId && data && (
+      {newsId && data ? (
         <div>
           <div>
             <div className="mb-3">
@@ -25,6 +25,12 @@ const News = ({ newsId }) => {
             </div>
             <hr />
             <p>{data.content}</p>
+          </div>
+        </div>
+      ) : (
+        <div>
+          <div className="d-flex justify-content-center fw-bolder text-muted">
+            Please select article...
           </div>
         </div>
       )}

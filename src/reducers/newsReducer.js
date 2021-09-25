@@ -26,7 +26,7 @@ export const newsListReducer = (
       return {
         ...state,
         loading: false,
-        sources: action.payload,
+        sources: action.payload.sources,
       }
     case GET_NEWS_CATEGORIES_SUCCESS:
       return {

@@ -37,7 +37,7 @@ export const searchNews = (text, startdate, enddate) => async (dispatch) => {
   }
 
   const { data } = await axios.get(
-    `/news-api/news/?q=${text}&sentiment=Positive&start_date=${startdate}&end_date=${enddate}&source_id=277%2C4171&category_id=13010000%2C04018000`,
+    `/news-api/news/?q=${text}&start_date=${startdate}&end_date=${enddate}`,
     config
   )
 
