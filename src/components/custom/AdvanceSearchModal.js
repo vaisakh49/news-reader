@@ -56,100 +56,104 @@ const AdvanceSearchModal = ({ isOpen, closeModal }) => {
 
         {/*  form  */}
         <form onSubmit={handleSubmit(submitForm)}>
-          <div className="d-flex justify-content-start">
-            <button
-              className="btn btn-primary btn-sm mb-2"
-              onClick={() => append({ name: "item" })}
-            >
-              Add filter
-            </button>
-          </div>
+          <div className="container">
+            <div className="row">
+              <div className="d-flex justify-content-start">
+                <button
+                  className="btn btn-primary btn-sm mb-2"
+                  onClick={() => append({ name: "item" })}
+                >
+                  Add filter
+                </button>
+              </div>
 
-          {fields.map(({ id, type, value }, index) => {
-            return (
-              <div key={id}>
-                <div className="d-flex flex-row justify-content-around mb-2">
-                  {/* -------------------------------------------------------------------------------- */}
-                  <select
-                    ref={register()}
-                    name={`filter[${index}].type`}
-                    defaultValue={type}
-                    onChange={(e) => setFilter(e.target.value)}
-                  >
-                    <option value="">Select Filter</option>
-                    <option value="category">Category</option>
-                    <option value="sentiment">Sentiment</option>
-                    <option value="source">Source</option>
-                  </select>
-                  {/* -------------------------------------------------------------------------------- */}
-                  <span>
-                    {filter === "category" ? (
-                      <input
-                        ref={register()}
-                        name={`filter[${index}].category`}
-                        defaultValue={value}
-                        type="text"
-                        className="form-control"
-                        aria-label="search"
-                        aria-describedby="Search categories"
-                      />
-                    ) : //--------------------------------------------------------------------------------
-                    filter === "sentiment" ? (
+              {fields.map(({ id, type, value }, index) => {
+                return (
+                  <div key={id}>
+                    <div className="d-flex flex-row justify-content-around mb-2">
+                      {/* -------------------------------------------------------------------------------- */}
                       <select
                         ref={register()}
-                        name={`filter[${index}].sentiment`}
-                        defaultValue={value}
-                        className="btb btn-lg"
+                        name={`filter[${index}].type`}
+                        defaultValue={type}
+                        onChange={(e) => setFilter(e.target.value)}
                       >
-                        <option value="">Select sentiment</option>
-                        <option value="Positive">Positive</option>
-                        <option value="Negative">Negative</option>
-                        <option value="Neutral">Neutral</option>
+                        <option value="">Select Filter</option>
+                        <option value="category">Category</option>
+                        <option value="sentiment">Sentiment</option>
+                        <option value="source">Source</option>
                       </select>
-                    ) : //--------------------------------------------------------------------------------
-                    filter === "source" ? (
-                      <FilterSource
-                        ref={register()}
-                        name={`filter[${index}].source`}
-                        defaultValue={value}
-                        type="text"
-                        className="form-control"
-                        aria-label="search"
-                      />
-                    ) : (
-                      //--------------------------------------------------------------------------------
-                      <fieldset disabled>
-                        <input
-                          type="text"
-                          id="disabledTextInput"
-                          className="form-control"
-                          placeholder="Please Select a filter"
-                        />
-                      </fieldset>
-                    )}
-                  </span>
-                  <span>
-                    <button
-                      type="button"
-                      className="btn btn-sm btn-danger"
-                      onClick={() => remove(index)}
-                    >
-                      x
-                    </button>
-                  </span>
+                      {/* -------------------------------------------------------------------------------- */}
+                      <span>
+                        {filter === "category" ? (
+                          <input
+                            ref={register()}
+                            name={`filter[${index}].category`}
+                            defaultValue={value}
+                            type="text"
+                            className="form-control"
+                            aria-label="search"
+                            aria-describedby="Search categories"
+                          />
+                        ) : //--------------------------------------------------------------------------------
+                        filter === "sentiment" ? (
+                          <select
+                            ref={register()}
+                            name={`filter[${index}].sentiment`}
+                            defaultValue={value}
+                            className="btb btn-lg"
+                          >
+                            <option value="">Select sentiment</option>
+                            <option value="Positive">Positive</option>
+                            <option value="Negative">Negative</option>
+                            <option value="Neutral">Neutral</option>
+                          </select>
+                        ) : //--------------------------------------------------------------------------------
+                        filter === "source" ? (
+                          <FilterSource
+                            ref={register()}
+                            name={`filter[${index}].source`}
+                            defaultValue={value}
+                            type="text"
+                            className="form-control"
+                            aria-label="search"
+                          />
+                        ) : (
+                          //--------------------------------------------------------------------------------
+                          <fieldset disabled>
+                            <input
+                              type="text"
+                              id="disabledTextInput"
+                              className="form-control"
+                              placeholder="Please Select a filter"
+                            />
+                          </fieldset>
+                        )}
+                      </span>
+                      <span>
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-danger"
+                          onClick={() => remove(index)}
+                        >
+                          x
+                        </button>
+                      </span>
+                    </div>
+                  </div>
+                )
+              })}
+
+              <hr />
+              <div className="d-flex justify-content-end">
+                <div
+                  type="submit"
+                  value="Submit"
+                  className="btb btn-sm btn-primary "
+                >
+                  Search{" "}
                 </div>
               </div>
-            )
-          })}
-
-          <hr />
-          <div className="d-flex justify-content-end">
-            <div
-              type="submit"
-              value="Submit"
-              className="btb btn-sm btn-primary "
-            >
-              Search{" "}
             </div>
           </div>
         </form>

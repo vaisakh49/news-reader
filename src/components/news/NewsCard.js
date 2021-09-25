@@ -5,8 +5,6 @@ import { useHistory } from "react-router-dom"
 const NewsCard = ({ id, date, title, source, sentiment }) => {
   const [type, setType] = useState(sentiment)
 
-  console.log(sentiment)
-
   const history = useHistory()
 
   function pushHandler(id) {
@@ -25,12 +23,24 @@ const NewsCard = ({ id, date, title, source, sentiment }) => {
             </div>
 
             <div className="text-muted">
-              {/* {type === "Positive" && (
+              {type === "Positive" && (
                 <button
                   type="button"
-                  class="btn btn-primary btn-circle btn-sm"
+                  class="btn btn-success btn-circle btn-sm"
                 />
-              )} */}
+              )}
+              {type === "Negative" && (
+                <button
+                  type="button"
+                  class="btn btn-danger btn-circle btn-sm"
+                />
+              )}
+              {type === "Neutral" && (
+                <button
+                  type="button"
+                  class="btn btn-secondary btn-circle btn-sm"
+                />
+              )}
               <span className="mx-2">{source} </span>
             </div>
           </div>

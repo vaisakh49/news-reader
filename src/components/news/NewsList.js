@@ -26,6 +26,7 @@ const NewsList = (props) => {
                 source={data.publication}
                 title={data.title}
                 date={data.date}
+                sentiment={data.sentiment}
               />
             ))}
           </div>
