@@ -1,32 +1,31 @@
 import "bootstrap/dist/css/bootstrap.min.css"
 import React, { useEffect } from "react"
-import { useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { BrowserRouter as Router, Route } from "react-router-dom"
 import Navbar from "./components/layouts/Navbar"
-import AdvanceSearchModal from "./components/custom/AdvanceSearchModal"
+import Alert from "./components/layouts/Alert"
 import HomeScreen from "./screens/HomeScreen"
 import ScrollTop from "./components/layouts/ScrollTop"
 import ScrollIndicator from "./components/layouts/ScrollIndicator"
-
-// import "materialize-css/dist/css/materialize.min.css"
-// import M from "materialize-css/dist/js/materialize.min.js"
+import {
+  latestNews,
+  getNewsCategories,
+  getNewsSource,
+} from "./actions/newsActions"
 
 function App() {
-  // useEffect(() => {
-  //   // Auto init matirialize js
-  //   M.AutoInit()
-  // })
-  const filterList = useSelector((state) => state.filterList)
-
-  const { showmodal } = filterList
+  const dispatch = useDispatch()
   useEffect(() => {
-    console.log(showmodal)
-  }, [showmodal])
-
+    // dispatch(latestNews())
+    dispatch(getNewsSource())
+    dispatch(getNewsCategories())
+    // console.log(sessionStorage.getItem(localStorage.getItem("news")))
+  }, [dispatch])
   return (
     <Router>
       <ScrollTop />
       <Navbar />
+      <Alert />
       <Route path="/:id?" component={HomeScreen} />
       <ScrollIndicator />
     </Router>

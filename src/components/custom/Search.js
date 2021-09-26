@@ -1,51 +1,28 @@
-import React, { useEffect, useState } from "react"
-// import PropTypes from "prop-types"
+import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { searchNews } from "../../actions/newsActions"
-import { setModalValue, startDate, endDate } from "../../actions/filterActions"
+import { searchNews, setAlert } from "../../actions/newsActions"
+// import { startDate, endDate } from "../../actions/filterActions"
 
 const Search = (props) => {
   const dispatch = useDispatch()
 
   const filterList = useSelector((state) => state.filterList)
 
-  const { startdate, enddate, showmodal } = filterList
+  const { startdate, enddate } = filterList
 
   const [text, setText] = useState("")
-  const [isOpen, setIsOpen] = useState(false)
-
-  // useEffect(() => {
-  //   dispatch(letestNews())
-  // }, [dispatch])
-  console.log(text)
-  console.log(startdate)
-  console.log(enddate)
 
   const search = (e) => {
     e.preventDefault()
     if (text === "" || startdate === "" || enddate === "") {
-      alert("please enter something")
-      // dispatch(letestNews())
+      setAlert()
+      alert("Select DateRange and Enter Something")
     } else {
       dispatch(searchNews(text, startdate, enddate))
-      dispatch(startDate(""))
-      dispatch(endDate(""))
-      setText("")
+      // dispatch(startDate(""))
+      // dispatch(endDate(""))
+      // setText("")
     }
-  }
-
-  const showModal = () => {
-    setIsOpen(true)
-    dispatch(setModalValue(true))
-  }
-
-  // updating text state
-  const onChange = (e) => {
-    // this.setState({ [e.target.name]: e.target.value });
-    setText(e.target.value)
-    console.log(text)
-    console.log(startdate)
-    console.log(enddate)
   }
 
   return (
@@ -56,13 +33,14 @@ const Search = (props) => {
           type="search"
           placeholder="Search here..."
           value={text}
-          onChange={onChange}
+          onChange={(e) => setText(e.target.value)}
         />
+        <div className="btn btn-secondary btn-sm" type="submit">
+          <i className=" fas fa-search" />
+        </div>
       </form>
     </>
   )
 }
-
-// Search.propTypes = {}
 
 export default Search

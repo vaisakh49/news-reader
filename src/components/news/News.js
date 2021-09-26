@@ -1,6 +1,6 @@
 import React from "react"
 import { useSelector } from "react-redux"
-// import PropTypes from 'prop-types'
+import PropTypes from "prop-types"
 
 const News = ({ newsId }) => {
   const newsList = useSelector((state) => state.newsList)
@@ -38,6 +38,8 @@ const News = ({ newsId }) => {
   )
 }
 
-// News.propTypes = {}
+News.propTypes = {
+  newsId: PropTypes.string,
+}
 
 export default News

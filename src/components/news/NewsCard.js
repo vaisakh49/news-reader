@@ -1,10 +1,8 @@
-import React, { useState } from "react"
-// import PropTypes from 'prop-types'
+import React from "react"
+import PropTypes from "prop-types"
 import { useHistory } from "react-router-dom"
 
 const NewsCard = ({ id, date, title, source, sentiment }) => {
-  const [type, setType] = useState(sentiment)
-
   const history = useHistory()
 
   function pushHandler(id) {
@@ -23,22 +21,22 @@ const NewsCard = ({ id, date, title, source, sentiment }) => {
             </div>
 
             <div className="text-muted">
-              {type === "Positive" && (
+              {sentiment === "Positive" && (
                 <button
                   type="button"
-                  class="btn btn-success btn-circle btn-sm"
+                  className="btn btn-success btn-circle btn-sm"
                 />
               )}
-              {type === "Negative" && (
+              {sentiment === "Negative" && (
                 <button
                   type="button"
-                  class="btn btn-danger btn-circle btn-sm"
+                  className="btn btn-danger btn-circle btn-sm"
                 />
               )}
-              {type === "Neutral" && (
+              {sentiment === "Neutral" && (
                 <button
                   type="button"
-                  class="btn btn-secondary btn-circle btn-sm"
+                  className="btn btn-secondary btn-circle btn-sm"
                 />
               )}
               <span className="mx-2">{source} </span>
@@ -50,6 +48,12 @@ const NewsCard = ({ id, date, title, source, sentiment }) => {
   )
 }
 
-// NewsCard.propTypes = {}
+NewsCard.propTypes = {
+  id: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  source: PropTypes.string.isRequired,
+  sentiment: PropTypes.string.isRequired,
+}
 
 export default NewsCard
