@@ -30,7 +30,7 @@ const FilterCategory = (props) => {
           <input
             type="text"
             className="form-control"
-            placeholder="search for source"
+            placeholder="search for category"
             value={wordEntered}
             onChange={handleFilter}
           />
