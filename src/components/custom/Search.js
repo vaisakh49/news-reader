@@ -1,7 +1,7 @@
-import React, { useState } from "react"
+import React from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useForm } from "react-hook-form"
-import { searchNews, setAlert } from "../../actions/newsActions"
+import { searchNews } from "../../actions/newsActions"
 
 const Search = (props) => {
   const dispatch = useDispatch()
