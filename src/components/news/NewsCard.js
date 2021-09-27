@@ -6,7 +6,7 @@ const NewsCard = ({ id, date, title, source, sentiment }) => {
   const history = useHistory()
 
   function pushHandler(id) {
-    history.push(`${id}`)
+    history.push(`/${id}`)
   }
   const newDate = date ? date.split("T")[0] : ""
 

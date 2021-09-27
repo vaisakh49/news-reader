@@ -4,7 +4,7 @@ import Loading from "../components/layouts/Loading"
 import NewsList from "../components/news/NewsList"
 import News from "../components/news/News"
 
-const HomeScreen = ({ match, history }) => {
+const HomeScreen = ({ match }) => {
   const newsList = useSelector((state) => state.newsList)
   const { loading } = newsList
 

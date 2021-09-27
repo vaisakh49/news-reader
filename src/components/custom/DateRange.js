@@ -20,15 +20,6 @@ const DateRange = (props) => {
     ],
   }
 
-  // const onFinish = (fieldsValue) => {
-  //   const rangeValue = fieldsValue["range-picker"]
-
-  //   const firstDate = rangeValue[0].format("YYYY-MM-DD")
-  //   const secondDate = rangeValue[1].format("YYYY-MM-DD")
-
-  //   dispatch(startDate(firstDate))
-  //   dispatch(endDate(secondDate))
-  // }
   function onChange(date, dateStrings) {
     const start = dateStrings[0]
     const end = dateStrings[1]
@@ -53,29 +44,10 @@ const DateRange = (props) => {
               onChange={onChange}
             />
           </Form.Item>
-
-          {/* <Form.Item
-        wrapperCol={{
-          xs: {
-            span: 24,
-            offset: 0,
-          },
-          sm: {
-            span: 16,
-            offset: 8,
-          },
-        }}
-      >
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
-      </Form.Item> */}
         </Form>
       </Col>
     </Row>
   )
 }
-
-// DateRange.propTypes = {}
 
 export default DateRange

@@ -6,10 +6,8 @@ import {
   GET_NEWS_SOURCES_SUCCESS,
   NEXT_LIST_REQUEST,
   NEXT_LIST_SUCCESS,
-  REMOVE_ALERT,
   SEARCH_NEWS_REQUEST,
   SEARCH_NEWS_SUCCESS,
-  SET_ALERT,
 } from "../constance/newsConstance"
 
 export const latestNews = () => async (dispatch) => {
@@ -23,14 +21,11 @@ export const latestNews = () => async (dispatch) => {
 
   const { data } = await axios.get("/news-api/news/", config)
 
-  // const news = await data.result.data
-  // console.log(data)
-
   dispatch({
     type: SEARCH_NEWS_SUCCESS,
     payload: data,
   })
-  // sessionStorage.setItem("news", JSON.stringify(data))
+  sessionStorage.setItem("news", JSON.stringify(data.result.data))
 }
 
 export const searchNews = (text, startdate, enddate) => async (dispatch) => {
@@ -47,15 +42,11 @@ export const searchNews = (text, startdate, enddate) => async (dispatch) => {
     config
   )
 
-  // const news = await data.result.data
-  // console.log(data.result.nextUrl)
-
   dispatch({
     type: SEARCH_NEWS_SUCCESS,
     payload: data,
   })
-  //   sessionStorage.setItem("news", JSON.stringify(data.result.data))
-  //   sessionStorage.setItem("nexturl", data.result.nextUrl)
+  sessionStorage.setItem("news", JSON.stringify(data.result.data))
 }
 
 export const nextList = (url) => async (dispatch, getState) => {
@@ -68,9 +59,6 @@ export const nextList = (url) => async (dispatch, getState) => {
   }
 
   const { data } = await axios.get(url, config)
-
-  // const news = await data.result.data
-  // console.log(data.result.nextUrl)
 
   dispatch({
     type: NEXT_LIST_SUCCESS,
@@ -112,12 +100,4 @@ export const getNewsCategories = () => async (dispatch) => {
     type: GET_NEWS_CATEGORIES_SUCCESS,
     payload: data,
   })
-}
-
-export const setAlert = () => async (dispatch) => {
-  dispatch({
-    type: SET_ALERT,
-  })
-
-  setTimeout(() => dispatch({ type: REMOVE_ALERT }), 3000)
 }

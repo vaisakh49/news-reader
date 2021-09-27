@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { useForm } from "react-hook-form"
 import { searchNews, setAlert } from "../../actions/newsActions"
-// import { startDate, endDate } from "../../actions/filterActions"
 
 const Search = (props) => {
   const dispatch = useDispatch()
@@ -10,34 +10,32 @@ const Search = (props) => {
 
   const { startdate, enddate } = filterList
 
-  const [text, setText] = useState("")
+  const search = (data) => {
+    const text = data.search
 
-  const search = (e) => {
-    e.preventDefault()
-    if (text === "" || startdate === "" || enddate === "") {
-      setAlert()
-      alert("Select DateRange and Enter Something")
-    } else {
-      dispatch(searchNews(text, startdate, enddate))
-      // dispatch(startDate(""))
-      // dispatch(endDate(""))
-      // setText("")
-    }
+    dispatch(searchNews(text, startdate, enddate))
+    console.log("searchNews running")
   }
-
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm()
   return (
     <>
-      <form className="form-inline" onSubmit={search}>
+      <form className="form-inline" onSubmit={handleSubmit(search)}>
         <input
-          className="form-control mr-sm-2"
-          type="search"
           placeholder="Search here..."
-          value={text}
-          onChange={(e) => setText(e.target.value)}
+          className="form-control mr-sm-2 fas"
+          aria-invalid={errors.search ? "true" : "false"}
+          name="search"
+          ref={register({ required: true })}
         />
-        <div className="btn btn-secondary btn-sm" type="submit">
-          <i className=" fas fa-search" />
-        </div>
+        {errors.search && (
+          <span className="ml-2 " role="alert">
+            This field is required
+          </span>
+        )}
       </form>
     </>
   )

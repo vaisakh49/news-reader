@@ -11,16 +11,16 @@ const NewsList = (props) => {
 
   const { news, loading, nexturl } = newsList
 
+  const newurl = nexturl ? nexturl.split("com")[1] : ""
+
   const nextNewsList = (url) => {
-    const newUrl = url.split("com")[1]
-    console.log(newUrl)
-    dispatch(nextList(newUrl))
+    dispatch(nextList(url))
   }
 
   return (
     <div className="container">
       {loading ? (
-        <div />
+        <div>{""}</div>
       ) : (
         <div>
           <div className="container mt-5">
@@ -38,14 +38,16 @@ const NewsList = (props) => {
               />
             ))}
           </div>
-          <div className="d-flex justify-content-center">
-            <button
-              className="my-4 btn btn-secondary"
-              onClick={() => nextNewsList(nexturl)}
-            >
-              next
-            </button>
-          </div>
+          {news.length !== 0 && (
+            <div className="d-flex justify-content-center">
+              <button
+                className="my-4 btn btn-secondary"
+                onClick={() => nextNewsList(newurl)}
+              >
+                next
+              </button>
+            </div>
+          )}
         </div>
       )}
     </div>

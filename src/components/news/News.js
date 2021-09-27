@@ -25,12 +25,17 @@ const News = ({ newsId }) => {
             </div>
             <hr />
             <p>{data.content}</p>
+            <div className="d-flex justify-content-center mt-5">
+              <a href={data.url}>
+                source <i className="fas fa-arrow-circle-right" />
+              </a>
+            </div>
           </div>
         </div>
       ) : (
         <div>
           <div className="d-flex justify-content-center fw-bolder text-muted">
-            Please select article...
+            Welcome to News Reader...
           </div>
         </div>
       )}

@@ -9,14 +9,15 @@ const reducer = combineReducers({
   filterList: filterListReducer,
 })
 
-// const newsFromStorage = sessionStorage.getItem("news")
-//   ? JSON.parse(sessionStorage.getItem("news"))
-//   : []
-// const nextUrlFromStorage = sessionStorage.getItem("nexturl")
-//   ? JSON.parse(sessionStorage.getItem("nexturl"))
-//   : ""
+const newsFromStorage = sessionStorage.getItem("news")
+  ? JSON.parse(sessionStorage.getItem("news"))
+  : []
 
-const initialState = {}
+const initialState = {
+  newsList: {
+    news: newsFromStorage,
+  },
+}
 
 const middileware = [thunk]
 

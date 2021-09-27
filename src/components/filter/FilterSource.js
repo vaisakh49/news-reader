@@ -1,6 +1,5 @@
 import React, { useState } from "react"
 import { useSelector } from "react-redux"
-// import PropTypes from 'prop-types
 
 const FilterSource = (props) => {
   const newsList = useSelector((state) => state.newsList)
@@ -9,8 +8,8 @@ const FilterSource = (props) => {
   const [filteredData, setFilteredData] = useState([])
   const [wordEntered, setWordEntered] = useState("")
 
-  const handleFilter = (event) => {
-    const searchWord = event.target.value
+  const handleFilter = (e) => {
+    const searchWord = e.target.value
     setWordEntered(searchWord)
 
     const newFilter = sources.filter((value) => {
@@ -24,11 +23,6 @@ const FilterSource = (props) => {
     }
   }
 
-  // const clearInput = () => {
-  //   setFilteredData([])
-  //   setWordEntered("")
-  // }
-
   return (
     <div>
       <div className="search">
@@ -41,15 +35,6 @@ const FilterSource = (props) => {
             onChange={handleFilter}
           />
         </div>
-        {/* <div className="searchIcon">
-          {filteredData.length === 0 ? (
-           
-              <i class="fas fa-search" aria-hidden="true"></i>
-            
-          ) : (
-            <i class="fas fa-times" aria-hidden="true"></i>
-          )}
-        </div> */}
       </div>
       {filteredData.length !== 0 && (
         <div className="dataResult">
@@ -65,7 +50,5 @@ const FilterSource = (props) => {
     </div>
   )
 }
-
-// FilterSource.propTypes = {}
 
 export default FilterSource

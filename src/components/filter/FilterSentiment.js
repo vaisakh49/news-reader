@@ -1,5 +1,4 @@
 import React from "react"
-// import PropTypes from 'prop-types'
 
 const FilterSentiment = (props) => {
   let currentSentimentValue = "DEFAULT"
@@ -14,7 +13,5 @@ const FilterSentiment = (props) => {
     </>
   )
 }
-
-// FilterSentiment.propTypes = {}
 
 export default FilterSentiment
