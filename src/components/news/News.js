@@ -35,7 +35,7 @@ const News = ({ newsId }) => {
       ) : (
         <div>
           <div className="d-flex justify-content-center fw-bolder text-muted">
-            Welcome to News Reader...
+            Search and pick your news...
           </div>
         </div>
       )}
