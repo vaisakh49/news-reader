@@ -1,41 +1,28 @@
-import React, { useState } from "react"
-import Modal from "react-modal"
-import { useForm, useFieldArray } from "react-hook-form"
+import React, { useState } from "react";
+import Modal from "react-modal";
+import Select from "react-select";
+import { useForm, Controller, useFieldArray } from "react-hook-form";
+import MultiSelect from "./MultiSelect";
+import { useSelector, useDispatch } from "react-redux";
+import { searchNews } from "../../actions/newsActions";
 
-import FilterCategory from "../filter/FilterCategory"
-import FilterSentiment from "../filter/FilterSentiment"
-import FilterSource from "../filter/FilterSource"
-// import PropTypes from 'prop-types'
+const optionsKeys = [
+  { value: "sources", label: "Sources" },
+  { value: "categories", label: "Categories" },
+  { value: "sentiment", label: "sentiment" },
+];
 
 const AdvanceSearchModal = ({ isOpen, closeModal }) => {
-  let currentFilterValue = "DEFAULT"
-  let currentSentimentValue = "DEFAULT"
+  const dispatch = useDispatch();
+  const filterList = useSelector((state) => state.filterList);
 
-  const [filter, setFilter] = useState("")
+  const { text, startdate, enddate } = filterList;
 
-  const customStyles = {
-    content: {
-      top: "40%",
-      left: "50%",
-      right: "auto",
-      bottom: "auto",
-      width: "40%",
-      marginRight: "-50%",
-      transform: "translate(-50%, -50%)",
-    },
-  }
-
-  const { register, control, handleSubmit, reset } = useForm()
+  const { control, handleSubmit } = useForm();
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "items",
-  })
-
-  const submitForm = (data) => {
-    console.log(data)
-
-    // reset()
-  }
+    name: "filters",
+  });
 
   return (
     <div>
@@ -55,96 +42,99 @@ const AdvanceSearchModal = ({ isOpen, closeModal }) => {
         <hr />
 
         {/*  form  */}
-        <form onSubmit={handleSubmit(submitForm)}>
+        <form
+          onSubmit={handleSubmit((data) => {
+            let sourceValue;
+            let categoryValue;
+            let sentimentValue;
+
+            if (data.filters.length) {
+              data.filters.forEach((value) => {
+                switch (value.select.value.toString()) {
+                  case "sources":
+                    sourceValue = value.multi.map((x) => {
+                      return x.value;
+                    });
+                    break;
+                  case "categories":
+                    categoryValue = value.multi.map((x) => {
+                      return x.value;
+                    });
+                    break;
+                  case "sentiment":
+                    sentimentValue = value.multi.value;
+
+                    break;
+                  default:
+                    return;
+                }
+              });
+            }
+            dispatch(
+              searchNews(text, startdate, enddate, true, {
+                sentiment: sentimentValue,
+                source: sourceValue,
+                category: categoryValue,
+              })
+            );
+            closeModal();
+
+            console.log(sourceValue);
+            console.log(categoryValue);
+            console.log(sentimentValue);
+          })}
+        >
           <div className="container">
             <div className="row">
               <div className="d-flex justify-content-start">
                 <button
                   className="btn btn-outline-primary btn-sm mb-2"
-                  onClick={() => append({ name: "item" })}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    append({});
+                  }}
                 >
                   Add filter
                 </button>
               </div>
 
-              {fields.map(
-                ({ id, type, category, sentiment, source }, index) => {
-                  console.log(type)
-                  return (
-                    <div key={id}>
-                      <div className="d-flex flex-row justify-content-around mb-2">
-                        {/* -------------------------------------------------------------------------------- */}
-                        <select
-                          ref={register()}
-                          name={`filter[${index}].type`}
-                          defaultValue={type}
-                          onChange={(e) => setFilter(e.target.value)}
+              {fields.map((item, idx) => {
+                return (
+                  <div key={item.id}>
+                    <div className="d-flex flex-row  mb-2">
+                      {/* -------------------------------------------------------------------------------- */}
+                      <Controller
+                        control={control}
+                        name={`filters[${idx}].select`}
+                        render={({ field }) => {
+                          const { value } = field;
+                          return (
+                            <Select
+                              options={optionsKeys}
+                              placeholder="Select Filter"
+                              {...field}
+                              isDisabled={value} // disable dropdown when a value is set
+                            />
+                          );
+                        }}
+                      />
+                      {/* -------------------------------------------------------------------------------- */}
+                      <span className="mx-auto">
+                        <MultiSelect control={control} idx={idx} />
+                      </span>
+                      <span>
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-danger ml-1"
+                          onClick={() => remove(idx)}
                         >
-                          <option value="">Select Filter</option>
-                          <option value="category">Category</option>
-                          <option value="sentiment">Sentiment</option>
-                          <option value="source">Source</option>
-                        </select>
-                        {/* -------------------------------------------------------------------------------- */}
-                        <span>
-                          {filter === "category" ? (
-                            <FilterCategory
-                              ref={register()}
-                              name={`filter[${index}].type`}
-                              defaultValue={category}
-                              type="text"
-                              className="form-control"
-                              aria-label="search"
-                            />
-                          ) : //--------------------------------------------------------------------------------
-                          filter === "sentiment" ? (
-                            <select
-                              ref={register()}
-                              name={`filter[${index}].type`}
-                              defaultValue={sentiment}
-                              className="btb btn-lg"
-                            >
-                              <option value="">Select sentiment</option>
-                              <option value="Positive">Positive</option>
-                              <option value="Negative">Negative</option>
-                              <option value="Neutral">Neutral</option>
-                            </select>
-                          ) : //--------------------------------------------------------------------------------
-                          filter === "source" ? (
-                            <FilterSource
-                              ref={register()}
-                              name={`filter[${index}].type`}
-                              defaultValue={source}
-                              type="text"
-                              className="form-control"
-                              aria-label="search"
-                            />
-                          ) : (
-                            //--------------------------------------------------------------------------------
-                            <fieldset disabled>
-                              <input
-                                type="text"
-                                id="disabledTextInput"
-                                className="form-control"
-                                placeholder="Please Select a filter"
-                              />
-                            </fieldset>
-                          )}
-                        </span>
-                        <span>
-                          <button
-                            type="button"
-                            className="btn btn-sm btn-danger"
-                            onClick={() => remove(index)}
-                          >
-                            x
-                          </button>
-                        </span>
-                      </div>
+                          x
+                        </button>
+                      </span>
                     </div>
-                  )
-                }
-              )}
+                  </div>
+                );
+              })}
 
               <hr />
               <div className="d-flex justify-content-end">
@@ -152,7 +142,6 @@ const AdvanceSearchModal = ({ isOpen, closeModal }) => {
                   type="submit"
                   value="Submit"
                   className="btb btn-sm btn-primary "
-                  disabled
                 >
                   Search{" "}
                 </button>
@@ -162,9 +151,20 @@ const AdvanceSearchModal = ({ isOpen, closeModal }) => {
         </form>
       </Modal>
     </div>
-  )
-}
+  );
+};
 
-// AdvanceSearchModal.propTypes = {}
-
-export default AdvanceSearchModal
+const customStyles = {
+  content: {
+    top: "40%",
+    left: "50%",
+    right: "auto",
+    bottom: "20%",
+    width: "50%",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    overflowX: "hidden",
+    overflowY: "auto",
+  },
+};
+export default AdvanceSearchModal;

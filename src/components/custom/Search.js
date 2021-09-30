@@ -1,26 +1,31 @@
-import React from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { useForm } from "react-hook-form"
-import { searchNews } from "../../actions/newsActions"
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
+import { searchNews } from "../../actions/newsActions";
+import { setSearchText } from "../../actions/filterActions";
 
 const Search = (props) => {
-  const dispatch = useDispatch()
-
-  const filterList = useSelector((state) => state.filterList)
-
-  const { startdate, enddate } = filterList
-
-  const search = (data) => {
-    const text = data.search
-
-    dispatch(searchNews(text, startdate, enddate))
-    console.log("searchNews running")
-  }
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
-  } = useForm()
+  } = useForm();
+  const searchText = watch("search");
+  useEffect(() => {
+    dispatch(setSearchText(searchText));
+  }, [searchText]);
+
+  const filterList = useSelector((state) => state.filterList);
+
+  const { startdate, enddate } = filterList;
+
+  const search = (data) => {
+    const text = data.search;
+    dispatch(searchNews(text, startdate, enddate));
+  };
+
   return (
     <>
       <form className="form-inline" onSubmit={handleSubmit(search)}>
@@ -29,7 +34,7 @@ const Search = (props) => {
           className="form-control mr-sm-2 fas"
           aria-invalid={errors.search ? "true" : "false"}
           name="search"
-          ref={register({ required: true })}
+          {...register("search", { required: true })}
         />
         {errors.search && (
           <span className="ml-2 " role="alert">
@@ -38,7 +43,7 @@ const Search = (props) => {
         )}
       </form>
     </>
-  )
-}
+  );
+};
 
-export default Search
+export default Search;

@@ -9,6 +9,7 @@ import { getNewsCategories, getNewsSource } from "./actions/newsActions"
 
 const App = () => {
   const dispatch = useDispatch()
+
   useEffect(() => {
     dispatch(getNewsSource())
     dispatch(getNewsCategories())
