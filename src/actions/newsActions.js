@@ -49,12 +49,17 @@ export const searchNews =
       response = data;
     } else {
       const { sentiment, category, source } = advancedData;
-      const { data } = await axios.get(
-        `/news-api/news/?q=${text}&sentiment=${sentiment}&start_date=${startdate}&end_date=${enddate}&source_id=${
-          source !== undefined ? source : ""
-        }&category_id=${category !== undefined ? category : ""}`,
-        config
-      );
+      let searchURL = `/news-api/news/?q=${text}&start_date=${startdate}&end_date=${enddate}`;
+      if (sentiment !== "" && sentiment !== undefined) {
+        searchURL += `&sentiment=${sentiment}`;
+      }
+      if (category !== "" && category !== undefined) {
+        searchURL += `&category=${category}`;
+      }
+      if (source !== "" && source !== undefined) {
+        searchURL += `&source=${source}`;
+      }
+      const { data } = await axios.get(searchURL, config);
       response = data;
     }
 

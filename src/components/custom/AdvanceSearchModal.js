@@ -78,10 +78,6 @@ const AdvanceSearchModal = ({ isOpen, closeModal }) => {
               })
             );
             closeModal();
-
-            console.log(sourceValue);
-            console.log(categoryValue);
-            console.log(sentimentValue);
           })}
         >
           <div className="container">

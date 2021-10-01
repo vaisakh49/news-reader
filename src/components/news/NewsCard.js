@@ -1,14 +1,22 @@
-import React from "react"
-import PropTypes from "prop-types"
-import { useHistory } from "react-router-dom"
+import React, { useEffect } from "react";
+import PropTypes from "prop-types";
+import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const NewsCard = ({ id, date, title, source, sentiment }) => {
-  const history = useHistory()
+  const newsList = useSelector((state) => state.newsList);
+  const { news } = newsList;
+
+  useEffect(() => {
+    history.push(news[0].id);
+  }, []);
+
+  const history = useHistory();
 
   function pushHandler(id) {
-    history.push(`/${id}`)
+    history.push(`/${id}`);
   }
-  const newDate = date ? date.split("T")[0] : ""
+  const newDate = date ? date.split("T")[0] : "";
 
   return (
     <>
@@ -45,8 +53,8 @@ const NewsCard = ({ id, date, title, source, sentiment }) => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
 NewsCard.propTypes = {
   id: PropTypes.string.isRequired,
@@ -54,6 +62,6 @@ NewsCard.propTypes = {
   title: PropTypes.string.isRequired,
   source: PropTypes.string.isRequired,
   sentiment: PropTypes.string.isRequired,
-}
+};
 
-export default NewsCard
+export default NewsCard;
