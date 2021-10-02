@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Modal from "react-modal";
 import Select from "react-select";
 import { useForm, Controller, useFieldArray } from "react-hook-form";
@@ -23,6 +23,46 @@ const AdvanceSearchModal = ({ isOpen, closeModal }) => {
     control,
     name: "filters",
   });
+  const search = (data) => {
+    let sourceValue;
+    let categoryValue;
+    let sentimentValue;
+
+    if (data.filters.length) {
+      data.filters.forEach((value) => {
+        switch (value.select.value.toString()) {
+          case "sources":
+            sourceValue = value.multi.map((x) => {
+              return x.value;
+            });
+            break;
+          case "categories":
+            categoryValue = value.multi.map((x) => {
+              return x.value;
+            });
+            break;
+          case "sentiment":
+            sentimentValue = value.multi.value;
+
+            break;
+          default:
+            return;
+        }
+      });
+    }
+    if (text === "") {
+      alert("Please enter something in search field");
+    } else {
+      dispatch(
+        searchNews(text, startdate, enddate, true, {
+          sentiment: sentimentValue,
+          source: sourceValue,
+          category: categoryValue,
+        })
+      );
+    }
+    closeModal();
+  };
 
   return (
     <div>
@@ -44,40 +84,7 @@ const AdvanceSearchModal = ({ isOpen, closeModal }) => {
         {/*  form  */}
         <form
           onSubmit={handleSubmit((data) => {
-            let sourceValue;
-            let categoryValue;
-            let sentimentValue;
-
-            if (data.filters.length) {
-              data.filters.forEach((value) => {
-                switch (value.select.value.toString()) {
-                  case "sources":
-                    sourceValue = value.multi.map((x) => {
-                      return x.value;
-                    });
-                    break;
-                  case "categories":
-                    categoryValue = value.multi.map((x) => {
-                      return x.value;
-                    });
-                    break;
-                  case "sentiment":
-                    sentimentValue = value.multi.value;
-
-                    break;
-                  default:
-                    return;
-                }
-              });
-            }
-            dispatch(
-              searchNews(text, startdate, enddate, true, {
-                sentiment: sentimentValue,
-                source: sourceValue,
-                category: categoryValue,
-              })
-            );
-            closeModal();
+            search(data);
           })}
         >
           <div className="container">
@@ -98,7 +105,6 @@ const AdvanceSearchModal = ({ isOpen, closeModal }) => {
                 return (
                   <div key={item.id}>
                     <div className="d-flex flex-row  mb-2">
-                      {/* -------------------------------------------------------------------------------- */}
                       <Controller
                         control={control}
                         name={`filters[${idx}].select`}
@@ -109,12 +115,11 @@ const AdvanceSearchModal = ({ isOpen, closeModal }) => {
                               options={optionsKeys}
                               placeholder="Select Filter"
                               {...field}
-                              isDisabled={value} // disable dropdown when a value is set
+                              isDisabled={value}
                             />
                           );
                         }}
                       />
-                      {/* -------------------------------------------------------------------------------- */}
                       <span className="mx-auto">
                         <MultiSelect control={control} idx={idx} />
                       </span>

@@ -2,10 +2,8 @@ import {
   GET_NEWS_CATEGORIES_SUCCESS,
   GET_NEWS_SOURCES_SUCCESS,
   NEXT_LIST_SUCCESS,
-  REMOVE_ALERT,
   SEARCH_NEWS_REQUEST,
   SEARCH_NEWS_SUCCESS,
-  SET_ALERT,
 } from "../constance/newsConstance";
 
 export const newsListReducer = (

@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from "react"
-import { useWindowScroll } from "react-use"
+import React, { useEffect, useState } from "react";
+import { useWindowScroll } from "react-use";
 
 const ScrollToTop = () => {
-  const { y: pageYOffset } = useWindowScroll()
-  const [visible, setVisiblity] = useState(false)
+  const { y: pageYOffset } = useWindowScroll();
+  const [visible, setVisiblity] = useState(false);
 
   useEffect(() => {
     if (pageYOffset > 200) {
-      setVisiblity(true)
+      setVisiblity(true);
     } else {
-      setVisiblity(false)
+      setVisiblity(false);
     }
-  }, [pageYOffset])
+  }, [pageYOffset]);
 
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" })
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   if (!visible) {
-    return false
+    return false;
   }
 
   return (
@@ -26,7 +26,7 @@ const ScrollToTop = () => {
     >
       <i className="icon fas fa-chevron-up"></i>
     </div>
-  )
-}
+  );
+};
 
-export default ScrollToTop
+export default ScrollToTop;

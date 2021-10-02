@@ -1,21 +1,21 @@
-import React from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { nextList } from "../../actions/newsActions"
-import DateRange from "../custom/DateRange"
-import NewsCard from "./NewsCard"
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { nextList } from "../../actions/newsActions";
+import DateRange from "../custom/DateRange";
+import NewsCard from "./NewsCard";
 
 const NewsList = (props) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const newsList = useSelector((state) => state.newsList)
+  const newsList = useSelector((state) => state.newsList);
 
-  const { news, loading, nexturl } = newsList
+  const { news, loading, nexturl } = newsList;
 
-  const newurl = nexturl ? nexturl.split("com")[1] : ""
+  const newurl = nexturl ? nexturl.split("com")[1] : "";
 
   const nextNewsList = (url) => {
-    dispatch(nextList(url))
-  }
+    dispatch(nextList(url));
+  };
 
   return (
     <div className="container">
@@ -51,7 +51,7 @@ const NewsList = (props) => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default NewsList
+export default NewsList;

@@ -6,20 +6,23 @@ import { setSearchText } from "../../actions/filterActions";
 
 const Search = (props) => {
   const dispatch = useDispatch();
+
+  const filterList = useSelector((state) => state.filterList);
+
+  const { startdate, enddate } = filterList;
+
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm();
+
   const searchText = watch("search");
+
   useEffect(() => {
     dispatch(setSearchText(searchText));
   }, [searchText]);
-
-  const filterList = useSelector((state) => state.filterList);
-
-  const { startdate, enddate } = filterList;
 
   const search = (data) => {
     const text = data.search;

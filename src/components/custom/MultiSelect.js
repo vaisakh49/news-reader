@@ -1,11 +1,12 @@
-import Select from "react-select"
-import { Controller, useWatch } from "react-hook-form"
-import { useSelector } from "react-redux"
+import React from "react";
+import Select from "react-select";
+import { Controller, useWatch } from "react-hook-form";
+import { useSelector } from "react-redux";
 
 function MultiSelect({ control, idx }) {
-  const newsList = useSelector((state) => state.newsList)
+  const newsList = useSelector((state) => state.newsList);
 
-  const { sources, categories } = newsList
+  const { sources, categories } = newsList;
 
   const multiSelectOptions = {
     sources: sources,
@@ -24,12 +25,12 @@ function MultiSelect({ control, idx }) {
       },
     ],
     categories: categories,
-  }
-  // read value from select
+  };
+
   const option = useWatch({
     control,
     name: `filters[${idx}].select`,
-  })
+  });
 
   return (
     <Controller
@@ -44,10 +45,10 @@ function MultiSelect({ control, idx }) {
             {...field}
             placeholder={`Select ${option?.value || "an option"}`}
           />
-        )
+        );
       }}
     />
-  )
+  );
 }
 
-export default MultiSelect
+export default MultiSelect;

@@ -25,7 +25,6 @@ export const latestNews = () => async (dispatch) => {
     type: SEARCH_NEWS_SUCCESS,
     payload: data,
   });
-  sessionStorage.setItem("news", JSON.stringify(data.result.data));
 };
 
 export const searchNews =
@@ -67,10 +66,9 @@ export const searchNews =
       type: SEARCH_NEWS_SUCCESS,
       payload: response,
     });
-    sessionStorage.setItem("news", JSON.stringify(response.result.data));
   };
 
-export const nextList = (url) => async (dispatch, getState) => {
+export const nextList = (url) => async (dispatch) => {
   dispatch({ type: NEXT_LIST_REQUEST });
 
   const config = {
@@ -85,8 +83,6 @@ export const nextList = (url) => async (dispatch, getState) => {
     type: NEXT_LIST_SUCCESS,
     payload: data,
   });
-  sessionStorage.setItem("news", JSON.stringify(data.result.data));
-  sessionStorage.setItem("nexturl", data.result.nextUrl);
 };
 
 export const getNewsSource = () => async (dispatch) => {
